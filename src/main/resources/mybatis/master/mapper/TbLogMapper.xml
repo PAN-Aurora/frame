@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.phq.frame.mapper.master.TbLogMapper" >
+  <resultMap id="BaseResultMap" type="com.phq.frame.domain.master.TbLog" >
+    <id column="log_id" property="logId" jdbcType="VARCHAR" />
+    <result column="log_request_url" property="logRequestUrl" jdbcType="VARCHAR" />
+    <result column="log_request_attributes" property="logRequestAttributes" jdbcType="VARCHAR" />
+    <result column="log_request_sessionid" property="logRequestSessionid" jdbcType="VARCHAR" />
+    <result column="log_request_clientip" property="logRequestClientip" jdbcType="VARCHAR" />
+    <result column="log_request_starttime" property="logRequestStarttime" jdbcType="TIMESTAMP" />
+    <result column="log_request_endtime" property="logRequestEndtime" jdbcType="TIMESTAMP" />
+    <result column="log_login_userid" property="logLoginUserid" jdbcType="VARCHAR" />
+    <result column="log_login_name" property="logLoginName" jdbcType="VARCHAR" />
+    <result column="log_create_time" property="logCreateTime" jdbcType="TIMESTAMP" />
+    <result column="log_exception" property="logException" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+ <!-- 保存日志数据 -->
+  <insert id="insertLogData" parameterType="com.phq.frame.domain.master.TbLog" >
+    insert into tb_log (log_id, log_request_url, log_request_attributes, 
+      log_request_sessionid, log_request_clientip, 
+      log_request_starttime, log_request_endtime, 
+      log_login_userid, log_login_name, log_create_time, 
+      log_exception)
+    values (#{logId,jdbcType=VARCHAR}, #{logRequestUrl,jdbcType=VARCHAR}, #{logRequestAttributes,jdbcType=VARCHAR}, 
+      #{logRequestSessionid,jdbcType=VARCHAR}, #{logRequestClientip,jdbcType=VARCHAR}, 
+      #{logRequestStarttime,jdbcType=TIMESTAMP}, #{logRequestEndtime,jdbcType=TIMESTAMP}, 
+      #{logLoginUserid,jdbcType=VARCHAR}, #{logLoginName,jdbcType=VARCHAR}, #{logCreateTime,jdbcType=TIMESTAMP}, 
+      #{logException,jdbcType=VARCHAR})
+  </insert>
+  
+  <!-- 更新日志请求结束时间 -->
+  <update id="updateEndTimeByPrimaryKey" parameterType="com.phq.frame.domain.master.TbLog" >
+    update tb_log
+    set 
+      log_request_endtime = #{logRequestEndtime,jdbcType=TIMESTAMP}
+    
+    where log_id = #{logId,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 删除日志信息 -->
+  <delete id="deleteLogData" parameterType="com.phq.frame.domain.master.TbLog" >
+       delete   from  tb_log  
+  </delete>
+  
+</mapper>
